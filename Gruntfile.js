@@ -22,6 +22,13 @@ module.exports = function (grunt) {
       }
     },
     watch: {
+      styles: {
+        files: ['app/static/less/**/*.less'],
+        tasks: ['less'],
+        options: {
+          nospawn: true
+        }
+      }
       options: {
         livereload: 35729
       },
@@ -39,7 +46,7 @@ module.exports = function (grunt) {
       proxies: [
         {
           context: '/wcsc_app',
-          host: 'localhost',
+          host: '127.0.0.1',
           port: 5000,
           https: false,
           changeOrigin: false
@@ -100,6 +107,19 @@ module.exports = function (grunt) {
         files: {
           'test/lib/angular-mocks': 'angular-mocks',
           'test/lib/angular-scenario': 'angular-scenario'
+        }
+      }
+    },
+    less: {
+      development: {
+        options: {
+          compress: true,
+          yuicompress: true,
+          optimization: 2
+        },
+        files: {
+          //target.css file: source.less file(s)
+          "app/static/css/main.css": "app/static/less/main.less"
         }
       }
     }

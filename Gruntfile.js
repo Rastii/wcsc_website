@@ -23,12 +23,12 @@ module.exports = function (grunt) {
     },
     watch: {
       styles: {
-        files: ['app/static/less/**/*.less'],
+        files: ['less/**/*.less'],
         tasks: ['less'],
         options: {
           nospawn: true
         }
-      }
+      },
       options: {
         livereload: 35729
       },
@@ -113,13 +113,22 @@ module.exports = function (grunt) {
     less: {
       development: {
         options: {
-          compress: true,
-          yuicompress: true,
-          optimization: 2
+          compress: false,
+          paths: ["app/static/css"]
         },
         files: {
           //target.css file: source.less file(s)
-          "app/static/css/main.css": "app/static/less/main.less"
+          "app/static/css/main.css": "less/main.less"
+        }
+      },
+      production: {
+        options: {
+          compress: true,
+          paths: ["app/static/css"]
+        },
+        files: {
+          //target.css file: source.less file(s)
+          "app/static/css/main.min.css": "less/main.less"
         }
       }
     }
@@ -133,4 +142,8 @@ module.exports = function (grunt) {
       'watch'
     ]);
   });
+
+  grunt.loadNpmTasks('grunt-contrib-less');
+
+  grunt.registerTask('build', ['less'])
 };

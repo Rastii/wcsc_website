@@ -42,6 +42,17 @@ module.exports = function (grunt) {
         //tasks: ['sync:dist']
       }
     },
+    jshint: {
+      options: {
+        curly: true,
+        eqeqeq: true,
+        eqnull: true,
+        browser: true
+      },
+      files: {
+        src: ['app/static/js/**/*.js', 'Gruntfile.js', 'bower.json']
+      }
+    },
     connect: {
       proxies: [
         {
@@ -143,7 +154,9 @@ module.exports = function (grunt) {
     ]);
   });
 
+  grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-less');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
 
   grunt.registerTask('build', ['less'])
 };

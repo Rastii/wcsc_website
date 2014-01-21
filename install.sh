@@ -1,14 +1,32 @@
+#!/bin/bash
+
+#Check to see if dev.db exists
+if [ ! -f dev.db ]; then
+  #If it does not exist, let's create it
+  touch dev.db
+fi
+
+#Setup python virtual environment
 python virtualenv.py flask
 flask/bin/pip install setuptools --no-use-wheel --upgrade
-flask/bin/pip install flask==0.9
-flask/bin/pip install flask-login
-flask/bin/pip install flask-openid
-flask/bin/pip install flask-mail==0.7.6
-flask/bin/pip install sqlalchemy==0.7.9
-flask/bin/pip install flask-sqlalchemy==0.16
-flask/bin/pip install sqlalchemy-migrate==0.7.2
-flask/bin/pip install flask-whooshalchemy==0.54a
-flask/bin/pip install flask-wtf==0.8.4
-flask/bin/pip install pytz==2013b
-flask/bin/pip install flask-babel==0.8
-flask/bin/pip install flup
+
+#Install python dependencies from require.txt
+filename="require.txt"
+while read -r line
+do
+  echo "Installing python module $line"
+  flask/bin/pip install $line
+  #Check to make sure each dependency works properly...
+  if [ $? -ne 0 ]; then
+    echo "ERROR: Failed to install python module $line -- EXITING"
+    echo "This may be caused because python dev tools are not installed"
+    echo "Debian: sudo apt-get install python-dev"
+    exit 1
+  fi
+done < $filename
+
+source flask/bin/activate
+#Setup the database
+python run.py setup
+
+echo "DONE";

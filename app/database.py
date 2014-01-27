@@ -31,11 +31,23 @@ def setup_db():
     label1 = BlogLabel(title="general")
     db_session.add(label1)
     db_session.commit()
+
     """Blog Creation
     """
-    blog1 = Blog(title='blog title', content='blog content', author=user.id)
+    blog1 = Blog(title='blog title', content='blog content', author_id=user.id)
     blog1.labels.append(label1)
     db_session.add(blog1)
+    db_session.commit()
+
+    """Blog Edits
+    """ 
+    #edit1 = Edit()
+    #edit1.editor.
+
+    """Event Creation
+    """
+    event = Event(title="event title", description="awesome event", link="http://google.com")
+    db_session.add(event)
     db_session.commit()
 
 

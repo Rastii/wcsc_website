@@ -1,9 +1,6 @@
 import sys
 from app import app
 
-app.jinja_env.line_statement_prefix = '%'
-app.jinja_env.add_extension('jinja2.ext.loopcontrols')
-
 if len(sys.argv) == 1:
   app.run(host='0.0.0.0', debug = True)
 else:

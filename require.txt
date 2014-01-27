@@ -2,6 +2,7 @@ flask==0.9
 flask-login
 flask-openid
 flask-mail==0.7.6
+Flask-RESTful==0.2.11
 sqlalchemy==0.7.9
 flask-sqlalchemy==0.16
 sqlalchemy-migrate==0.7.2
